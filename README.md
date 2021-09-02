@@ -6,6 +6,7 @@ This repo contain all of my files and documentation of the workshop "RTL design 
 Day 1
 ========
 To start the workshop is necessary to clone some repositories. So on the terminal, write the following commands: 
+
 .. code:: bash
 
     git clone https://github.com/kunalg123/vsdflow.git
@@ -35,3 +36,5 @@ A classical testbench look like the next figure:
 ![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/Diagrams/day1/test_bench.png?raw=true)
 
 Where the "My design" is a verilog file that contains an digital circuit, and this circuit is instantiated in the test bench verilog file for aplicate stimulus to the inputs of My design and capture the changes on the outputs 
+
+
