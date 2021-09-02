@@ -7,6 +7,7 @@ Day 1
 ========
 To start the workshop is necessary to clone some repositories. So on the terminal, write the following commands: 
 .. code:: bash
+
     git clone https://github.com/kunalg123/vsdflow.git
     git clone https://github.com/kunalg123/sky130RTLDesignAndSynthesisWorkshop.git
     
