@@ -33,18 +33,18 @@ To start the day one lab is necessary to clone some repositories. So on the term
     
 This commands will create two directories.
 
-On the directory ‌/sky130RTLDesignAndSynthesisWorkshop you will have two subdirectories. One is called my_lib and contains another two subdirectories /lib and /verilog_model
+On the directory ‌```bash /sky130RTLDesignAndSynthesisWorkshop``` you will have two subdirectories. One is called my_lib and contains another two subdirectories ```bash /lib ``` and ```bash /verilog_model```
 
 The subdir /lib contains the sky130 standar cell library for the synthesis process, and the name of this lib is sky130_fd_sc_hd__tt_025C_1v80.lib
 
 The subdir /verilog_model contains all of the standar cell verilog model
 
-The directory /sky130RTLDesignAndSynthesisWorkshop/verilog_files contains all of the verilog files for the labs experiments (verilog designs and test benchs)
+The directory ```bash /sky130RTLDesignAndSynthesisWorkshop/verilog_files``` contains all of the verilog files for the labs experiments (verilog designs and test benchs)
 
 ## Lab2 Day 1 (iverilog and gtkwave)
 Inside the directory /sky130RTLDesignAndSynthesisWorkshop/verilog_files we have a lot of .v files. This files are designs and test bench. 
 The files that start whit "tb_.." are the test bench files. For example one of the design on this chapter is good_mux.v and the respective testbench is tb_good_mux.tb.
-In the next picture it is possible to see all of the verilog files inside of the the directory /sky130RTLDesignAndSynthesisWorkshop/verilog_files
+In the next picture it is possible to see all of the verilog files inside of the the directory ```bash /sky130RTLDesignAndSynthesisWorkshop/verilog_files```
 
 ### Simulating using Iverilog
 
@@ -144,26 +144,26 @@ In the next figure it is possible to see a graphical representation of the RTL c
 -- image --
 
 ## Laboratory (yosys basic flow)
-- On the directory /sky130RTLDesignAndSynthesisWorkshop/verilog_files run:
+- On the directory ```bash /sky130RTLDesignAndSynthesisWorkshop/verilog_files``` run:
  yosys
 
 Now in yosys:
 
 - Read the .lib file. Run:
-  read_liberty -lib ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib 
+  ```bash read_liberty -lib ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib ```
 - Read the verilog design file. Run:
-  read_verilog good_mux.v
+  ```bash read_verilog good_mux.v ```
 - Specify the top module of your design. Run:
-  synth -top good_mux
+  ```bash synth -top good_mux```
 - Generate the netlist. Run:
-  abc -liberty ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib 
+  ```bash abc -liberty ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib ```
 - It's possible to see a graphical representation of the netlist using the command view. So, run:
   show
   -- figure --
 - Write the netlist file. Run:
-  write_verilog -noattr good_mux_netlist.v
+  ```bash write_verilog -noattr good_mux_netlist.v ```
 - For read the netlist run:
-  !gvim good_mux_netlist.v
+  ```bash !gvim good_mux_netlist.v ```
   -- image -- 
 # Day 2
 
@@ -207,22 +207,22 @@ On the other hand it's possible to use a flag in the synthesis workflow for do a
 and the commands will be:
 
 - Read the .lib file. Run:
-  read_liberty -lib ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib 
+  ```bash read_liberty -lib ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib  ```
 - Read the verilog design file. Run:
-  read_verilog multilple_modules.v
+  ```bash read_verilog multilple_modules.v ```
 - Specify the top module of your design. Run:
-  synth -top good_mux
+  ```bash synth -top good_mux ```
 - Generate the netlist. Run:
-  abc -liberty ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib 
+  ```bash abc -liberty ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib ```
 - Flatten flag. Run:
-  flatten
+  ```bash flatten ```
 -  To see a graphical representation of the netlist using the command view. So, run:
-  show multilple_modules
+  ``` bash show multilple_modules ```
   -- figure --
 - Write the netlist file. Run:
-  write_verilog -noattr multilple_modules_flatten.v
+  ```bash write_verilog -noattr multilple_modules_flatten.v ```
 - For read the netlist run:
-  !gvim multilple_modules_flatten.v
+  ```bash !gvim multilple_modules_flatten.v ```
   
   A comparation between this two types of synthesis, and the resultant netlist file, is presented in the next figure
   
@@ -239,20 +239,20 @@ And example of how to do that is:
 Suppose that we want to syntesized the sub_module1 of the RTL code called multilple_modules.v. The yosys command for do that are the following:
 
 - Read the .lib file. Run:
-  read_liberty -lib ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib 
+  ```bash read_liberty -lib ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib  ```
 - Read the verilog design file. Run:
-  read_verilog multilple_modules.v
+  ```bash read_verilog multilple_modules.v ```
 - Specify the top module of your design. Run:
-  synth -top sub_module1
+ ```bash  synth -top sub_module1 ```
 - Generate the netlist. Run:
-  abc -liberty ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib 
+  ```bash abc -liberty ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib  ```
 -  To see a graphical representation of the netlist using the command view. So, run:
-  show sub_module1
+  ```bash show sub_module1 ```
   -- figure --
 - Write the netlist file. Run:
-  write_verilog -noattr sub_module1.v
+ ```bash  write_verilog -noattr sub_module1.v ```
 - For read the netlist run:
-  !gvim sub_module1.v
+  ```bash !gvim sub_module1.v ```
 
 
 
