@@ -22,12 +22,9 @@ Before starting with the first lab is necessary to standardize some concepts.
 
 ## How simulator works? (can be iverilog or other commercials simulators)
 
-The simulator looks for the changes on the input signals
-When one input (or more) change, the output is evaluated
-remember: if any change occurs in the input, will be any changes on the output.
-
-
-Every design has one or more Primary inputs and Primary outputs.
+The simulator looks for the changes on the input signals. When one input (or more) change, the output is evaluated
+- remember: if any change occurs in the input, will be any changes on the output.
+*Every design has one or more Primary inputs and Primary outputs.*
 
 A classical testbench look like the next figure:
 
