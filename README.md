@@ -33,18 +33,18 @@ To start the day one lab is necessary to clone some repositories. So on the term
     
 This commands will create two directories.
 
-On the directory ‌```bash /sky130RTLDesignAndSynthesisWorkshop``` you will have two subdirectories. One is called my_lib and contains another two subdirectories ```bash /lib ``` and ```bash /verilog_model```
+On the directory ‌``` /sky130RTLDesignAndSynthesisWorkshop``` you will have two subdirectories. One is called my_lib and contains another two subdirectories ``` /lib ``` and ``` /verilog_model```
 
-The subdir /lib contains the sky130 standar cell library for the synthesis process, and the name of this lib is sky130_fd_sc_hd__tt_025C_1v80.lib
+The subdir ``` /lib ``` contains the sky130 standar cell library for the synthesis process, and the name of this lib is sky130_fd_sc_hd__tt_025C_1v80.lib
 
-The subdir /verilog_model contains all of the standar cell verilog model
+The subdir ``` /verilog_model```  contains all of the standar cell verilog model
 
-The directory ```bash /sky130RTLDesignAndSynthesisWorkshop/verilog_files``` contains all of the verilog files for the labs experiments (verilog designs and test benchs)
+The directory ``` /sky130RTLDesignAndSynthesisWorkshop/verilog_files``` contains all of the verilog files for the labs experiments (verilog designs and test benchs)
 
 ## Lab2 Day 1 (iverilog and gtkwave)
 Inside the directory /sky130RTLDesignAndSynthesisWorkshop/verilog_files we have a lot of .v files. This files are designs and test bench. 
 The files that start whit "tb_.." are the test bench files. For example one of the design on this chapter is good_mux.v and the respective testbench is tb_good_mux.tb.
-In the next picture it is possible to see all of the verilog files inside of the the directory ```bash /sky130RTLDesignAndSynthesisWorkshop/verilog_files```
+In the next picture it is possible to see all of the verilog files inside of the the directory ``` /sky130RTLDesignAndSynthesisWorkshop/verilog_files```
 
 ### Simulating using Iverilog
 
@@ -55,10 +55,10 @@ The flow of simulation is graphically showed in the next figure
 
 The command and sintaxis for do this is:
 
- iverilog good_mux.v tb_good_mux.v
+ ```iverilog good_mux.v tb_good_mux.v``` 
 
 If everithing is good the last command will be create and executable binary file call a.out that you need to run doing
-./a.out
+./a.out  
 
 You will see the next message: VCD info: dumpfile tb_good_mux.vcd opened for output
 The past steps are shown in the next figure
@@ -79,9 +79,9 @@ gvim good_mux.v -o tb_good_mux.v
 This will show you an editor and you can see what are writed inside of this files.
 
 The file called good_mux.v describe a tipical 2-1 mux. I the folowing figure is the structure of this file is described
-![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY1/figs/1.jpg?raw=true)
+![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY1/figs/1.png?raw=true)
 The file called tb_good_mux.v describe a testbench for the 2-1 mux. I the folowing figure is the structure of this file is described
-![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY1/figs/2.jpg?raw=true)
+![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY1/figs/2.png?raw=true)
 
 ## Introduction to yosys
 
@@ -141,42 +141,46 @@ for example, a fast circuit requieres wide transistor and this will be implicate
 for other side, a circuit that requieres low power consumption need to implement narrow transistor that will have a high capacitance, low area and less power consumption.
 ### Ilustration of the synthesis process
 In the next figure it is possible to see a graphical representation of the RTL code mapped to standar cell of an specific .lib file
--- image --
+![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY1/figs/8.jpg?raw=true)
 
 ## Laboratory (yosys basic flow)
-- On the directory ```bash /sky130RTLDesignAndSynthesisWorkshop/verilog_files``` run:
- yosys
+- On the directory ``` /sky130RTLDesignAndSynthesisWorkshop/verilog_files``` run:
+ ```yosys ```
 
 Now in yosys:
 
 - Read the .lib file. Run:
-  ```bash read_liberty -lib ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib ```
+  ``` read_liberty -lib ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib ```
 - Read the verilog design file. Run:
-  ```bash read_verilog good_mux.v ```
+  ``` read_verilog good_mux.v ```
 - Specify the top module of your design. Run:
-  ```bash synth -top good_mux```
+  ``` synth -top good_mux```
 - Generate the netlist. Run:
-  ```bash abc -liberty ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib ```
-- It's possible to see a graphical representation of the netlist using the command view. So, run:
-  show
-  -- figure --
+  ``` abc -liberty ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib ```
+- It's possible to see a graphical representation of the netlist using the command show. So, run:
+ ``` show ```
+  ![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY1/figs/6.jpg?raw=true)
 - Write the netlist file. Run:
-  ```bash write_verilog -noattr good_mux_netlist.v ```
+  ``` write_verilog -noattr good_mux_netlist.v ```
 - For read the netlist run:
-  ```bash !gvim good_mux_netlist.v ```
-  -- image -- 
+  ``` !gvim good_mux_netlist.v ```
+  ![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY1/figs/7.jpg?raw=true)
+  
+  
 # Day 2
 
 ## Lab 1
 The name of the .lib file contains important information for the designers. They are 3 paramaters that we can see on the .lib file called "sky130_fd_sc_hd__tt_025C_1v80.lib"
 
---image--
+  ![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY2/figs/lib.png?raw=true)
 
-Also, the .lib files has a lot of information(like area, leakage power, power consumption, pin capacitance, etc) of every cell of the lib file. For example, in the next figures is possible to see the leakage power of one cell called sky130_fd_sc_hd__a2111o_1 for different inputs conditions, the capacitance of some pins
+Also, the .lib files has a lot of information(like area, leakage power, power consumption, pin capacitance, etc) of every cell of the lib file. For example, in the next figures is possible to see the leakage power of one cell called sky130_fd_sc_hd__a2111o_1 for different inputs conditions, the capacitance of some pins, and other parameters.
+![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY2/figs/1.jpg?raw=true)
+![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY2/figs/2.jpg?raw=true)
 
 For different types of the same cells we can note that the parametrs of the cells are differents. For example, if we see the characteristics of different types of AND gates we will see that the parameters (like the total area, power, delay, etc) are differents. See the next figure 
 
--- images -- 
+![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY2/figs/3.jpg?raw=true)
 
 ## Lab Hier synthesis vs flat synthesis
 There are two types of synthesis: Hierachical and flat synthesis.
@@ -202,31 +206,32 @@ Note that said RTL code contains two sub modules (sub_module1 and sub_module2) a
 
 If we synthesize this RTL code following the instruccion of the Day 1: lab Laboratory (yosys basic flow)
 will be obtain a hierarchical model. See the next figure.
+  ![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY2/figs/5.jpg?raw=true)
 
 On the other hand it's possible to use a flag in the synthesis workflow for do a flatten sysnthesis. This flag is *flatten*
 and the commands will be:
 
 - Read the .lib file. Run:
-  ```bash read_liberty -lib ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib  ```
+  ``` read_liberty -lib ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib  ```
 - Read the verilog design file. Run:
-  ```bash read_verilog multilple_modules.v ```
+  ``` read_verilog multilple_modules.v ```
 - Specify the top module of your design. Run:
-  ```bash synth -top good_mux ```
+  ``` synth -top good_mux ```
 - Generate the netlist. Run:
-  ```bash abc -liberty ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib ```
+  ``` abc -liberty ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib ```
 - Flatten flag. Run:
-  ```bash flatten ```
+  ``` flatten ```
 -  To see a graphical representation of the netlist using the command view. So, run:
-  ``` bash show multilple_modules ```
-  -- figure --
+  ```  show multilple_modules ```
+  ![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY2/figs/6.jpg?raw=true)
 - Write the netlist file. Run:
-  ```bash write_verilog -noattr multilple_modules_flatten.v ```
+  ``` write_verilog -noattr multilple_modules_flatten.v ```
 - For read the netlist run:
-  ```bash !gvim multilple_modules_flatten.v ```
+  ``` !gvim multilple_modules_flatten.v ```
   
   A comparation between this two types of synthesis, and the resultant netlist file, is presented in the next figure
   
-  --image--
+  ![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY2/figs/4.jpg?raw=true)
   
  ### Sub module synthesis
  The file called multilple_modules.v contains two submodules (1 and 2) and it's possible to synthesized an specific submodule.
@@ -239,20 +244,20 @@ And example of how to do that is:
 Suppose that we want to syntesized the sub_module1 of the RTL code called multilple_modules.v. The yosys command for do that are the following:
 
 - Read the .lib file. Run:
-  ```bash read_liberty -lib ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib  ```
+  ``` read_liberty -lib ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib  ```
 - Read the verilog design file. Run:
-  ```bash read_verilog multilple_modules.v ```
+  ``` read_verilog multilple_modules.v ```
 - Specify the top module of your design. Run:
- ```bash  synth -top sub_module1 ```
+ ```  synth -top sub_module1 ```
 - Generate the netlist. Run:
-  ```bash abc -liberty ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib  ```
+  ``` abc -liberty ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib  ```
 -  To see a graphical representation of the netlist using the command view. So, run:
-  ```bash show sub_module1 ```
-  -- figure --
+  ``` show sub_module1 ```
+  ![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY2/figs/7.jpg?raw=true)
 - Write the netlist file. Run:
- ```bash  write_verilog -noattr sub_module1.v ```
+ ```  write_verilog -noattr sub_module1.v ```
 - For read the netlist run:
-  ```bash !gvim sub_module1.v ```
+  ``` !gvim sub_module1.v ```
 
 
 
