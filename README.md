@@ -13,11 +13,11 @@ To start the workshop is necessary to clone some repositories. So on the termina
     
 Before starting with the first lab is necessary to standardize some concepts.
 
- *Simulator: will be the tool used for simulating the RTL designs. Trought this course, we will use iverilog
+- Simulator: will be the tool used for simulating the RTL designs. Trought this course, we will use iverilog
 
- *Design: Can be one or more Verilog files that describe the functionality of some circuit based on a set of specifications 
+- Design: Can be one or more Verilog files that describe the functionality of some circuit based on a set of specifications 
 
- *TestBench: Is a Verilog file that contains a set of stimulus (called test vectors) to check the functionality of my design
+- TestBench: Is a Verilog file that contains a set of stimulus (called test vectors) to check the functionality of my design
 
 
 ## How simulator works? (can be iverilog or other commercials simulators)
