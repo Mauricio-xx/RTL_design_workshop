@@ -1,6 +1,7 @@
 # Overview RTL_design_workshop
 This repo contain all of my files and documentation of the workshop "RTL design using Verilog with SKY130 Technology"
 
+-----------------------------------------------------------------------------------------------------------------------------------------------
 # Day 1
     
 Before starting with the first lab is necessary to standardize some concepts.
@@ -166,8 +167,9 @@ Now in yosys:
   ``` !gvim good_mux_netlist.v ```
   ![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY1/figs/7.jpg?raw=true)
   
+-----------------------------------------------------------------------------------------------------------------------------------------------
   
-# Day 2
+# Day 2. Timinig libs, hierarchical vs flat synthesis and efficient flop coding styles
 
 ## Lab 1
 The name of the .lib file contains important information for the designers. They are 3 paramaters that we can see on the .lib file called "sky130_fd_sc_hd__tt_025C_1v80.lib"
@@ -258,6 +260,281 @@ Suppose that we want to syntesized the sub_module1 of the RTL code called multil
  ```  write_verilog -noattr sub_module1.v ```
 - For read the netlist run:
   ``` !gvim sub_module1.v ```
+  
+# Day 3. Combinational and sequential optimizations
+
+##Why Flops?
+
+Consider a combinatinal circuit like the next figure. And remeber that every digital circuit has a propagation delay.
+  ![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY2/figs/3/2.png?raw=true)
+
+So if the propagation delay of the gate AND is 2ns and the propagation delay of the OR gate is 1ns, we will have a glitch condition because the 1ns of the propagation delay difference. In the next time diagram this situation is showed.
+  ![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY2/figs/3/1.png?raw=true)
+
+If we have more combinational circuits in series, we will have possible glitches, like the following image.
+  ![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY2/figs/3/3.png?raw=true)
 
 
+It's possible to avoid this situation using Flops between the circuit. The flo ps will retain the information and the out of this circuit only will change in function of the clock, this granted a stable out avoiding the glitches.
+  ![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY2/figs/3/4.png?raw=true)
+
+
+## Types of Flops
+There are different types of flops and differents code styles for everyone. The output of the flops will change on the rising edge or in the negedge of the clock, also the output can change when a reset signal is applied. But the output change when the reset signal is applied can be synchronous, asynchronous, or both.
+The differences in the code style will determine the behavior of the flop. 
+The next time diagrams show two cases of flops, synchronous and asynchronous.
+
+## Lab1: Flip Flops simulation
+
+The next diagram shows two types of Flop, synchronous and asynchronous respectively.
+  ![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY2/figs/3/5.png?raw=true)
+  
+    ![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY2/figs/3/6.png?raw=true)
+    
+Using iverilog and gtk wave we will simulate three types of flop. Asynchronous set and reset, synchronous reset.
+
+for do the simulatio run:
+```
+$ iverilog dff_your_flop.v tb_dff_your_flop.v
+$ ./a.out
+$ gtkwave tb_dff_your_flop.vcd
+```
+
+the gtkwave simulations are the following
+
+![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY2/figs/3/1.jpg?raw=true)
+    
+![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY2/figs/3/2.jpg?raw=true)
+        
+![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY2/figs/3/3.jpg?raw=true)
+    
+
+
+## Lab2: FLip Flops synthesis
+The same flip flop model used in the past lab called "Lab1: Flip Flops simulation" will be synthetized using yosys. The steps for that and the results are presented in the following section.
+#### Asynchronous reset Flop synthesys flow
+  ``` $ read_liberty -lib ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib  
+  $ read verilog dff_asyncres.v
+  $ synth -top dff_asyncres
+  ```
+  Now we need to force the tool yosys for use only DFF, so run:
+  ``` $ dfflibmap -liberty ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib```
+  Now create the netlist file, run:
+  ``` abc -liberty ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib```
+  To see a graphical representation of the netlist using the command view. So, run:
+  ``` $ show dff_asyncres ```
+![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY2/figs/3/5.jpg?raw=true)
+  
+#### Asynchronous set Flop synthesys flow
+  ``` $ read_liberty -lib ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib  
+  $ read_verilog dff_asyncres_set.v
+  $ synth -top dff_asyncres_set
+  ```
+  Now we need to force the tool yosys for use only DFF, so run:
+  ``` $ dfflibmap -liberty ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib```
+  Now create the netlist file, run:
+  ``` abc -liberty ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib```
+  To see a graphical representation of the netlist using the command view. So, run:
+  ``` $ show dff_asyncres_set ```
+![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY2/figs/3/6.jpg?raw=true)
+
+#### Synchronous set Flop synthesys flow
+ ``` $ read_liberty -lib ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib  
+  $ read_verilog dff_syncres.v
+  $ synth -top dff_syncres
+  ```
+  Now we need to force the tool yosys for use only DFF, so run:
+  ``` $ dfflibmap -liberty ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib```
+  Now create the netlist file, run:
+  ``` abc -liberty ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib```
+  To see a graphical representation of the netlist using the command view. So, run:
+  ``` $ show dff_syncres```
+![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY2/figs/3/7.jpg?raw=true)
+
+## Lab3: Optimization
+It's not necessary to have extra harwware for do some multiplication (two base multiplication), beacuse the basic arimetic operation called shifter do it easily and efficientily (in therms of hardware).
+
+For example, on the directory ```/verilog_files``` we have a file called mult_2.v
+On yosys we can synthesized this file. So, run:
+
+ ``` $ read_liberty -lib ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib  
+  $ read_verilog mult_2.v
+  $ synth -top mul2
+  ```
+  Create the netlist file, run:
+  ``` abc -liberty ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib```
+  To see a graphical representation of the netlist using the command view. So, run:
+  ``` $ show mul2```
+![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY3/8.jpg?raw=true)
+  Write the netlist, run:
+  ```$ write_verilog -noattr mult_2_net.v```
+  
+  In case of the file called mult_8.v, the steps are the same.
+ 
+
+## Day 3: Combiantional and Secuential optimization
+
+**The key for an optimize a digitial circuit is focus on Area and Power saving**
+We will se two techniques for optimization on digital circuits:
+- Cosntant propagation(direct optimization)
+- Boolean logic optimization (using k-map for example)
+## Constant propagation optimization
+Consider the circuit of the next figure. And remember that every logic gate has a propagation delay. So, it's possible design a circuit that the ouput behavioral will be equivalent to the another circuit but whit less propagation delay. The answer to this question is yes, and that is the key for this type of optimization.
+In the case of the last figuere, this circuit is equivalent to a neg-buffer. See the next figure.
+![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY3/diagrams/7.jpg?raw=true)
+**Note that the number of transistor for implement the circuit of the last figure will be different in both cases. A less number of transistors is equivalent to have a circuit that consume less power and use less area! **
+
+## Boolean optimization
+Consider the next boolean expresion * assign y = a?(b?c:(c?a:0)):(!c). Using boolean algebra is possible to reduce this original expresion. The reduction of this expresion is equivalent to obtain a new circuit (simplified) that will be optimized in terms of area and power consumption because the epresion of this new circuit is a simplification of the original expresion. See the next figure:
+![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY3/diagrams/8.jpg?raw=true)
+
+## Cloning and Retiming optimization
+Cloning optimization consist in cloning one part of the circuit that is far away of the other parts. See the next figure
+![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY3/diagrams/9.jpg?raw=true)
+
+Retiming optimization consist in modificate some part of the logic of one cicuit for reduce the max propagation delay, and increment the max frecuency of the clock.
+In the next figure, Logic1 and Logic2 has a propagation delay equal to 5ns and 2ns respectively, so the max clock frecuency is 200MHz.
+Now we can modify part of the Logic1 and also modify part of the Logic2 and compensate the slow stage with the fast stage, and in consequence increment the max clk frecuency. See the next figure
+![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY3/diagrams/10.jpg?raw=true)
+![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY3/diagrams/11.jpg?raw=true)
+
+# Lab: combinational logic optimization 
+
+consider the next verilog code  ```opt_check.v ```
+ ```verilog
+module opt_check (input a , input b , output y);
+        assign y = a?b:0;
+endmodule
+ ```
+On yosys we can synthesized this file. So, run:
+
+ ``` $ read_liberty -lib ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib  
+  $ read_verilog opt_check.v
+  $ synth -top opt_check
+  ```
+  Optimize, run:
+  ```opt_clean -purge```
+  
+  Create the netlist file, run:
+  ``` abc -liberty ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib```
+  To see a graphical representation of the netlist using the command view. So, run:
+  ``` $ show opt_check```
+![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY3/9.jpg?raw=true)
+
+consier the another verilog code called  ```opt_check2.v
+
+ ```verilog
+module opt_check2 (input a , input b , output y);
+        assign y = a?1:b;
+endmodule
+ ```
+On yosys we can synthesized this file. So, run:
+
+ ``` $ read_liberty -lib ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib  
+  $ read_verilog opt_check2.v
+  $ synth -top opt_check2
+  ```
+  Optimize, run:
+  ```opt_clean -purge```
+  
+  Create the netlist file, run:
+  ``` abc -liberty ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib```
+  To see a graphical representation of the netlist using the command view. So, run:
+  ``` $ show opt_check2```
+  ![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY3/diagrams/10.jpg?raw=true)
+  
+# Lab Sequential Logic Optimisations
+
+Consider the next verilog code:
+
+ ```verilog
+module dff_const1(input clk, input reset, output reg q);
+always @(posedge clk, posedge reset)
+begin
+        if(reset)
+                q <= 1'b0;
+        else
+                q <= 1'b1;
+end
+
+endmodule ```
+
+On yosys we can synthesized this file. So, run:
+
+ ``` $ read_liberty -lib ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib  
+  $ read_verilog dff_const1.v
+  $ synth -top dff_const1
+  ```
+  Now we need to force the tool yosys for use only DFF, so run:
+  ``` $ dfflibmap -liberty ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib```
+  
+  Create the netlist file, run:
+  ``` abc -liberty ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib```
+  To see a graphical representation of the netlist using the command view. So, run:
+  ``` $ show dff_const1```
+![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY3/11.jpg?raw=true)
+
+ ```verilog
+module dff_const2(input clk, input reset, output reg q);
+always @(posedge clk, posedge reset)
+begin
+        if(reset)
+                q <= 1'b1;
+        else
+                q <= 1'b1;
+end
+
+endmodule ```
+
+On yosys we can synthesized this file. So, run:
+
+ ``` $ read_liberty -lib ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib  
+  $ read_verilog dff_const2.v
+  $ synth -top dff_const2
+  ```
+  dfflib it's was included in the last module so is not necessary to import now.
+  
+  Create the netlist file, run:
+  ``` abc -liberty ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib```
+  To see a graphical representation of the netlist using the command view. So, run:
+  ``` $ show dff_const2```
+![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY3/12.jpg?raw=true)
+
+ ```verilog
+module dff_const3(input clk, input reset, output reg q);
+reg q1;
+
+always @(posedge clk, posedge reset)
+begin
+        if(reset)
+        begin
+                q <= 1'b1;
+                q1 <= 1'b0;
+        end
+        else
+        begin
+                q1 <= 1'b1;
+                q <= q1;
+        end
+end
+
+endmodule ```
+
+On yosys we can synthesized this file. So, run:
+
+ ``` $ read_liberty -lib ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib  
+  $ read_verilog dff_const3.v
+  $ synth -top dff_const3
+  ```
+  dfflib it's was included in the last module so is not necessary to import now.
+  
+  Create the netlist file, run:
+  ``` abc -liberty ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib```
+  To see a graphical representation of the netlist using the command view. So, run:
+  ``` $ show dff_const3```
+![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY3/13.jpg?raw=true)
+
+
+
+## Lab: Seq optimisation unused outputs part1
 
