@@ -702,7 +702,9 @@ $ ./a.out
 //import .vcd to gtkwave
 $ gtkwave tb_ternary_operator_mux.vcd
 ```
---image|--
+![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY4/s1.jpg?raw=true)
+
+
 Now, using yosys we do the synthesis. The commans were:
 ```
 //open yosys
@@ -718,7 +720,7 @@ $ abc -liberty ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
 //show the graphical result of the netlist
 $ show 
 ```
--- image --
+![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY4/1s.jpg?raw=true)
 ```
 //write the netlist file
 $ write_verilog -noattr ternary_operator_mux_net.v
@@ -736,7 +738,7 @@ $ ./a.out
 //use gtkwave for see the waves!
 $ gtkwave tb_ternary_operator_mux.vcd
 ```
----image---
+![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY4/s4.jpg?raw=true)
 
 ## Lab Sensitivity list mismatch
 Using the file called bad_mux.v we will note a mismatch between the RTL sim and the GLS. 
@@ -764,7 +766,7 @@ $ ./a.out
 //import .vcd to gtkwave
 $ gtkwave tb_bad_mux.vcd
 ```
---image--
+![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY4/s2.jpg?raw=true)
 
 note that the output only will change when the sel input change, so some changes in the other inputs don't produce a change in the output.
 
@@ -783,7 +785,7 @@ $ abc -liberty ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
 //show the graphical result of the netlist
 $ show 
 ```
--- image --
+![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY4/2s.jpg?raw=true)
 ```
 //write the netlist file
 $ write_verilog -noattr bad_mux_net.v
@@ -800,7 +802,7 @@ $ ./a.out
 //use gtkwave for see the waves!
 $ gtkwave tb_bad_mux.vcd
 ```
----image vs image---
+![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY4/s5.jpg?raw=true)
 
 ## Lab Blocking assignments mismatch example
 
@@ -829,7 +831,7 @@ $ ./a.out
 //import .vcd to gtkwave
 $ gtkwave tb_blocking_caveat.vcd
 ```
---image--
+![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY4/s3.jpg?raw=true)
 
 
 
@@ -848,7 +850,7 @@ $ abc -liberty ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
 //show the graphical result of the netlist
 $ show 
 ```
--- image --
+![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY4/3s.jpg?raw=true)
 ```
 //write the netlist file
 $ write_verilog -noattr blocking_caveat_net.v
@@ -865,7 +867,8 @@ $ ./a.out
 //use gtkwave for see the waves!
 $ gtkwave tb_blocking_caveat.vcd
 ```
----image vs image---
+![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY4/s3.jpg?raw=true)
+
 --------------------------------------------------------------------------------------------------------------------------
 #Day 5
 
@@ -911,7 +914,9 @@ else begin
 ...
 end
 ```
-every condition in the last codes have special hardware for everyone, and a grpahycal implementation of this is showed in the next fifure
+every condition in the last codes have special hardware for everyone, and a grpahycal implementation of this is showed in the next fifure:
+![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY5/if.png?raw=true)
+
 
 ### Some cautions with If statement
 Cnsider the next example code:
@@ -981,7 +986,7 @@ $ ./a.out
 //use gtkwave for see the waveforms
 $ gtkwave tb_incomp_if.vcd
 ```
---image ---
+![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY5/s1.jpg?raw=true)
 ```
 //run yosys
 $ yosys
@@ -996,18 +1001,8 @@ $ abc -liberty ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
 //show the result
 $ show 
 ```
--- image--
-```
-//GLS stage
-//add the necessary files
-$ iverilog ../my_lib/verilog_model/primitives.v ../my_lib/verilog_model/
-sky130_fd_sc_hd.v incomp_if.v  tb_incomp_if.v
-//run the .a file
-$ ./a.out
-//use gtkwave
-$ gtkwave tb_incomp_if.vcd
-```
---image--
+![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY5/1s.jpg?raw=true)
+
 
 ##Lab: Incomplete IF2
 
@@ -1037,7 +1032,7 @@ $ ./a.out
 //use gtkwave for see the waveforms
 $ gtkwave tb_incomp_if2.vcd
 ```
---image ---
+![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY5/s2.jpg?raw=true)
 ```
 //run yosys
 $ yosys
@@ -1052,18 +1047,8 @@ $ abc -liberty ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
 //show the result
 $ show 
 ```
--- image--
-```
-//GLS stage
-//add the necessary files
-$ iverilog ../my_lib/verilog_model/primitives.v ../my_lib/verilog_model/
-sky130_fd_sc_hd.v incomp_if2.v  tb_incomp_if2.v
-//run the .a file
-$ ./a.out
-//use gtkwave
-$ gtkwave tb_incomp_if2.vcd
-```
---image--
+![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY5/2s.jpg?raw=true)
+
 
 ##Lab incomplete case statement
 
@@ -1091,7 +1076,7 @@ $ ./a.out
 //use gtkwave for see the waveforms
 $ gtkwave tb_incomp_case.vcd
 ```
---image ---
+![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY5/s3.jpg?raw=true)
 ```
 //run yosys
 $ yosys
@@ -1106,18 +1091,8 @@ $ abc -liberty ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
 //show the result
 $ show 
 ```
--- image--
-```
-//GLS stage
-//add the necessary files
-$ iverilog ../my_lib/verilog_model/primitives.v ../my_lib/verilog_model/
-sky130_fd_sc_hd.v incomp_if2.v  tb_incomp_case.v
-//run the .a file
-$ ./a.out
-//use gtkwave
-$ gtkwave tb_incomp_case.vcd
-```
---image--
+![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY5/3s.jpg?raw=true)
+
             
 ##Lab complete case statement
 
@@ -1145,7 +1120,7 @@ $ ./a.out
 //use gtkwave for see the waveforms
 $ gtkwave tb_comp_case.vcd
 ```
---image ---
+![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY5/s4.jpg?raw=true)
 ```
 //run yosys
 $ yosys
@@ -1160,18 +1135,8 @@ $ abc -liberty ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
 //show the result
 $ show 
 ```
--- image--
-```
-//GLS stage
-//add the necessary files
-$ iverilog ../my_lib/verilog_model/primitives.v ../my_lib/verilog_model/
-sky130_fd_sc_hd.v comp_case.v  tb_comp_case.v
-//run the .a file
-$ ./a.out
-//use gtkwave
-$ gtkwave tb_comp_case.vcd
-```
---image--
+![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY5/4s.jpg?raw=true)
+
           
 ##Lab partial case statement
 
@@ -1206,7 +1171,7 @@ $ ./a.out
 //use gtkwave for see the waveforms
 $ gtkwave mux_generate .vcd
 ```
---image ---
+![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY5/s5.jpg?raw=true)
 ```
 //run yosys
 $ yosys
@@ -1221,19 +1186,9 @@ $ abc -liberty ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
 //show the result
 $ show 
 ```
--- image--
-```
-//GLS stage
-//add the necessary files
-$ iverilog ../my_lib/verilog_model/primitives.v ../my_lib/verilog_model/
-sky130_fd_sc_hd.v ipartial_case_assign .v  mux_generate .v
-//run the .a file
-$ ./a.out
-//use gtkwave
-$ gtkwave mux_generate .vcd
-```
---image--
-          
+-image-
+
+
 ## For and generate statement labs
 For loops can be used in two modes: create a logic (is inside of the always blcok) and the second option is use the for loops for generate hardware (outside of the always block!)
 
@@ -1261,13 +1216,13 @@ Now we will do the simulation RTL, syntehsis and GLS. Steps and command are bell
 
 ```
 //load design and tb
-$ iverilog mux_generate .v tb_mux_generate .v
+$ iverilog mux_generate.v tb_mux_generate .v
 //run the binary output file
 $ ./a.out
 //use gtkwave for see the waveforms
-$ gtkwave tb_mux_generate .vcd
+$ gtkwave tb_mux_generate.vcd
 ```
---image ---
+![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY5/f1.jpg?raw=true)
 ```
 //run yosys
 $ yosys
@@ -1282,20 +1237,69 @@ $ abc -liberty ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
 //show the result
 $ show 
 ```
--- image--
+![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY5/f1.jpg?raw=true)
 ```
 //GLS stage
-//add the necessary files
+//write netlist
+$ write_verilog mux_generate_net.v
+//close yosys
+$ exit
+//add the necessary files iverilog
 $ iverilog ../my_lib/verilog_model/primitives.v ../my_lib/verilog_model/
-sky130_fd_sc_hd.v imux_generate .v  tb_mux_generate .v
+sky130_fd_sc_hd.v mux_generate.v  tb_mux_generate .v
 //run the .a file
 $ ./a.out
 //use gtkwave
 $ gtkwave tb_mux_generate .vcd
 ```
---image--
 
-Now consider an use example for use for-loops for **generate hardware**. See the next code called rca.v
+consider the next verilog file called demux_generate.v. This code is an example of use for loops for create a the logic of a circuit. The circuit described in this case is a mux 4-1 mux.
+
+
+The verilog code is:
+```
+module demux_generate (output o0 , output o1, output o2 , output o3, output o4, output o5, output o6 , output o7 , input [2:0] sel  , input i);
+reg [7:0]y_int;
+assign {o7,o6,o5,o4,o3,o2,o1,o0} = y_int;
+integer k;
+always @ (*)
+begin
+y_int = 8'b0;
+for(k = 0; k < 8; k++) begin
+        if(k == sel)
+                y_int[k] = i;
+end
+end
+```
+Now we will do the simulation RTL, syntehsis and GLS. Steps and command are bellow:
+
+```
+//load design and tb
+$ iverilog mux_generate.v tb_mux_generate .v
+//run the binary output file
+$ ./a.out
+//use gtkwave for see the waveforms
+$ gtkwave tb_mux_generate.vcd
+```
+![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY5/f2.jpg?raw=true)
+```
+//run yosys
+$ yosys
+//import the library 
+$ read_liberty -lib ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+//design read
+$ read_verilog mux_generate .v 
+//Synthesize the design 
+$ synth -top mux_generate 
+//netlist generation
+$ abc -liberty ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+//show the result
+$ show 
+```
+--image
+
+
+Now consider an example for use for-loops for **generate hardware**. See the next code called rca.v
 ```
 module rca (input [7:0] num1 , input [7:0] num2 , output [8:0] sum);
 wire [7:0] int_sum;
@@ -1315,7 +1319,7 @@ assign sum[7:0] = int_sum;
 assign sum[8] = int_co[7];
 endmodule
 ```
-note that design depends of the one external block called 'fa', this block is an adder. The fa,v code is:
+note that design depends of the one external block called 'fa', this block is an adder. The fa.v code is:
 ```
 module fa (input a , input b , input c, output co , output sum);
         assign {co,sum}  = a + b + c ;
@@ -1325,6 +1329,7 @@ note that in the file called rca.v the module fa is replicate i times. So we are
 
 Now we will do the simulation RTL, syntehsis and GLS. Steps and command are bellow:
 
+
 ```
 //load designs and tb
 $ iverilog fa.v rca.v tb_rca.v
@@ -1332,15 +1337,16 @@ $ iverilog fa.v rca.v tb_rca.v
 $ ./a.out
 //use gtkwave for see the waveforms
 $ gtkwave tb_rca.vcd
+
 ```
---image ---
+![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY5/s8.jpg?raw=true)
 ```
 //run yosys
 $ yosys
 //import the library 
 $ read_liberty -lib ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
 //design read
-$ read_verilog rca.v 
+$ read_verilog fa.v rca.v 
 //Synthesize the design 
 $ synth -top rca 
 //netlist generation
@@ -1348,17 +1354,8 @@ $ abc -liberty ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
 //show the result
 $ show 
 ```
--- image--
-```
-//GLS stage
-//add the necessary files
-$ iverilog ../my_lib/verilog_model/primitives.v ../my_lib/verilog_model/
-sky130_fd_sc_hd.v rca.v  tb_rca.v
-//run the .a file
-$ ./a.out
-//use gtkwave
-$ gtkwave tb_rca .vcd
-```
---image--
+
+![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY5/f3_.jpg?raw=true)
+
 
 
