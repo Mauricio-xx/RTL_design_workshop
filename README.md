@@ -962,7 +962,7 @@ Note that in this case we don't have a priority of excecution. And remember that
 ##Lab: Incomplete IF1
 
 consider the next verilog file called incomp_if.v and note that the if statement is incomplete!
-
+```verilog
 module incomp_if (input i0 , input i1 , input i2 , output reg y);
 always @ (*)
 begin
@@ -970,19 +970,19 @@ begin
                 y <= i1;
 end
 endmodule
-
+```
 Now we will do the simulation RTL, syntehsis and GLS. Steps and command are bellow:
 
-
+```
 //load design and tb
 $ iverilog incomp_if.v tb_incomp_if.v
 //run the binary output file
 $ ./a.out
 //use gtkwave for see the waveforms
 $ gtkwave tb_incomp_if.vcd
-
+```
 --image ---
-
+```
 //run yosys
 $ yosys
 //import the library 
@@ -995,9 +995,9 @@ $ synth -top incomp_if
 $ abc -liberty ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
 //show the result
 $ show 
-
+```
 -- image--
-
+```
 //GLS stage
 //add the necessary files
 $ iverilog ../my_lib/verilog_model/primitives.v ../my_lib/verilog_model/
@@ -1006,13 +1006,14 @@ sky130_fd_sc_hd.v incomp_if.v  tb_incomp_if.v
 $ ./a.out
 //use gtkwave
 $ gtkwave tb_incomp_if.vcd
-
+```
 --image--
 
 ##Lab: Incomplete IF2
 
 consider the next verilog file called incomp_if2.v and note that the if statement is incomplete! 
 
+```verilog
 
 module incomp_if2 (input i0 , input i1 , input i2 , input i3, output reg y);
 always @ (*)
@@ -1023,21 +1024,21 @@ begin
                 y <= i3;
 
 end
-endmodule
-           
-
+endmodule 
+      
+```
 Now we will do the simulation RTL, syntehsis and GLS. Steps and command are bellow:
 
-
+```
 //load design and tb
 $ iverilog incomp_if.v tb_incomp_if2.v
 //run the binary output file
 $ ./a.out
 //use gtkwave for see the waveforms
 $ gtkwave tb_incomp_if2.vcd
-
+```
 --image ---
-
+```
 //run yosys
 $ yosys
 //import the library 
@@ -1050,9 +1051,9 @@ $ synth -top incomp_if2
 $ abc -liberty ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
 //show the result
 $ show 
-
+```
 -- image--
-
+```
 //GLS stage
 //add the necessary files
 $ iverilog ../my_lib/verilog_model/primitives.v ../my_lib/verilog_model/
@@ -1061,14 +1062,14 @@ sky130_fd_sc_hd.v incomp_if2.v  tb_incomp_if2.v
 $ ./a.out
 //use gtkwave
 $ gtkwave tb_incomp_if2.vcd
-
+```
 --image--
 
 ##Lab incomplete case statement
 
 consider the next verilog file called incomp_case.v and note that the case statement is incomplete!
 
-
+```
 module incomp_case (input i0 , input i1 , input i2 , input [1:0] sel, output reg y);
 always @ (*)
 begin
@@ -1078,20 +1079,20 @@ begin
         endcase
 end
 endmodule
-
+```
 **Note that the case statement don't have a default case!**
 Now we will do the simulation RTL, syntehsis and GLS. Steps and command are bellow:
 
-
+```
 //load design and tb
 $ iverilog incomp_case.v tb_incomp_case.v
 //run the binary output file
 $ ./a.out
 //use gtkwave for see the waveforms
 $ gtkwave tb_incomp_case.vcd
-
+```
 --image ---
-
+```
 //run yosys
 $ yosys
 //import the library 
@@ -1104,9 +1105,9 @@ $ synth -top incomp_case
 $ abc -liberty ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
 //show the result
 $ show 
-
+```
 -- image--
-
+```
 //GLS stage
 //add the necessary files
 $ iverilog ../my_lib/verilog_model/primitives.v ../my_lib/verilog_model/
@@ -1115,14 +1116,14 @@ sky130_fd_sc_hd.v incomp_if2.v  tb_incomp_case.v
 $ ./a.out
 //use gtkwave
 $ gtkwave tb_incomp_case.vcd
-
+```
 --image--
             
 ##Lab complete case statement
 
 consider the next verilog file called comp_case.v and note that the case statement is complete! (default condition)
 
-
+```
 module comp_case (input i0 , input i1 , input i2 , input [1:0] sel, output reg y);
 always @ (*)
 begin
@@ -1133,9 +1134,9 @@ begin
         endcase
 end
 endmodule
-
+```
 Now we will do the simulation RTL, syntehsis and GLS. Steps and command are bellow:
-
+```
 
 //load design and tb
 $ iverilog comp_case.v tb_comp_case.v
@@ -1143,9 +1144,9 @@ $ iverilog comp_case.v tb_comp_case.v
 $ ./a.out
 //use gtkwave for see the waveforms
 $ gtkwave tb_comp_case.vcd
-
+```
 --image ---
-
+```
 //run yosys
 $ yosys
 //import the library 
@@ -1158,9 +1159,9 @@ $ synth -top comp_case
 $ abc -liberty ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
 //show the result
 $ show 
-
+```
 -- image--
-
+```
 //GLS stage
 //add the necessary files
 $ iverilog ../my_lib/verilog_model/primitives.v ../my_lib/verilog_model/
@@ -1169,14 +1170,14 @@ sky130_fd_sc_hd.v comp_case.v  tb_comp_case.v
 $ ./a.out
 //use gtkwave
 $ gtkwave tb_comp_case.vcd
-
+```
 --image--
           
 ##Lab partial case statement
 
 consider the next verilog file called partial_case_assign.v and note that the case statement for the condition 2b01, the output x is not defined!
 
-
+```
 module partial_case_assign (input i0 , input i1 , input i2 , input [1:0] sel, output reg y , output reg x);
 always @ (*)
 begin
@@ -1194,19 +1195,19 @@ begin
 end
 endmodule
              
-
+```
 Now we will do the simulation RTL, syntehsis and GLS. Steps and command are bellow:
 
-
+```
 //load design and tb
 $ iverilog partial_case_assign.v mux_generate.v
 //run the binary output file
 $ ./a.out
 //use gtkwave for see the waveforms
 $ gtkwave mux_generate .vcd
-
+```
 --image ---
-
+```
 //run yosys
 $ yosys
 //import the library 
@@ -1219,9 +1220,9 @@ $ synth -top partial_case_assign
 $ abc -liberty ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
 //show the result
 $ show 
-
+```
 -- image--
-
+```
 //GLS stage
 //add the necessary files
 $ iverilog ../my_lib/verilog_model/primitives.v ../my_lib/verilog_model/
@@ -1230,7 +1231,7 @@ sky130_fd_sc_hd.v ipartial_case_assign .v  mux_generate .v
 $ ./a.out
 //use gtkwave
 $ gtkwave mux_generate .vcd
-
+```
 --image--
           
 ## For and generate statement labs
@@ -1241,7 +1242,7 @@ consider the next verilog file called mux_generate.v. This code is an example of
 
 
 The verilog code is:
-
+```
 module mux_generate (input i0 , input i1, input i2 , input i3 , input [1:0] sel  , output reg y);
 wire [3:0] i_int;
 assign i_int = {i3,i2,i1,i0};
@@ -1255,19 +1256,19 @@ end
 end
 endmodule
 
-
+```
 Now we will do the simulation RTL, syntehsis and GLS. Steps and command are bellow:
 
-
+```
 //load design and tb
 $ iverilog mux_generate .v tb_mux_generate .v
 //run the binary output file
 $ ./a.out
 //use gtkwave for see the waveforms
 $ gtkwave tb_mux_generate .vcd
-
+```
 --image ---
-
+```
 //run yosys
 $ yosys
 //import the library 
@@ -1280,9 +1281,9 @@ $ synth -top mux_generate
 $ abc -liberty ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
 //show the result
 $ show 
-
+```
 -- image--
-
+```
 //GLS stage
 //add the necessary files
 $ iverilog ../my_lib/verilog_model/primitives.v ../my_lib/verilog_model/
@@ -1291,11 +1292,11 @@ sky130_fd_sc_hd.v imux_generate .v  tb_mux_generate .v
 $ ./a.out
 //use gtkwave
 $ gtkwave tb_mux_generate .vcd
-
+```
 --image--
 
 Now consider an use example for use for-loops for **generate hardware**. See the next code called rca.v
-
+```
 module rca (input [7:0] num1 , input [7:0] num2 , output [8:0] sum);
 wire [7:0] int_sum;
 wire [7:0]int_co;
@@ -1313,27 +1314,27 @@ fa u_fa_0 (.a(num1[0]),.b(num2[0]),.c(1'b0),.co(int_co[0]),.sum(int_sum[0]));
 assign sum[7:0] = int_sum;
 assign sum[8] = int_co[7];
 endmodule
-
+```
 note that design depends of the one external block called 'fa', this block is an adder. The fa,v code is:
-
+```
 module fa (input a , input b , input c, output co , output sum);
         assign {co,sum}  = a + b + c ;
 endmodule
-
+```
 note that in the file called rca.v the module fa is replicate i times. So we are using for loop for generate hardware.
 
 Now we will do the simulation RTL, syntehsis and GLS. Steps and command are bellow:
 
-
+```
 //load designs and tb
 $ iverilog fa.v rca.v tb_rca.v
 //run the binary output file
 $ ./a.out
 //use gtkwave for see the waveforms
 $ gtkwave tb_rca.vcd
-
+```
 --image ---
-
+```
 //run yosys
 $ yosys
 //import the library 
@@ -1346,9 +1347,9 @@ $ synth -top rca
 $ abc -liberty ../my_lib/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
 //show the result
 $ show 
-
+```
 -- image--
-
+```
 //GLS stage
 //add the necessary files
 $ iverilog ../my_lib/verilog_model/primitives.v ../my_lib/verilog_model/
@@ -1357,5 +1358,7 @@ sky130_fd_sc_hd.v rca.v  tb_rca.v
 $ ./a.out
 //use gtkwave
 $ gtkwave tb_rca .vcd
-
+```
 --image--
+
+
