@@ -302,11 +302,11 @@ $ gtkwave tb_dff_your_flop.vcd
 
 the gtkwave simulations are the following
 
-![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY2/figs/3/1.jpg?raw=true)
+![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY2/figs/2/1.jpg?raw=true)
     
-![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY2/figs/3/2.jpg?raw=true)
+![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY2/figs/2/2.jpg?raw=true)
         
-![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY2/figs/3/3.jpg?raw=true)
+![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY2/figs/2/3.jpg?raw=true)
     
 
 
