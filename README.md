@@ -381,7 +381,7 @@ We will se two techniques for optimization on digital circuits:
 ## Constant propagation optimization
 Consider the circuit of the next figure. And remember that every logic gate has a propagation delay. So, it's possible design a circuit that the ouput behavioral will be equivalent to the another circuit but whit less propagation delay. The answer to this question is yes, and that is the key for this type of optimization.
 In the case of the last figuere, this circuit is equivalent to a neg-buffer. See the next figure.
-![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY3/diagrams/7.jpg?raw=true)
+![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY3/diagrams/7.png?raw=true)
 **Note that the number of transistor for implement the circuit of the last figure will be different in both cases. A less number of transistors is equivalent to have a circuit that consume less power and use less area! **
 
 ## Boolean optimization
@@ -390,13 +390,13 @@ Consider the next boolean expresion * assign y = a?(b?c:(c?a:0)):(!c). Using boo
 
 ## Cloning and Retiming optimization
 Cloning optimization consist in cloning one part of the circuit that is far away of the other parts. See the next figure
-![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY3/diagrams/9.jpg?raw=true)
+![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY3/diagrams/9.png?raw=true)
 
 Retiming optimization consist in modificate some part of the logic of one cicuit for reduce the max propagation delay, and increment the max frecuency of the clock.
 In the next figure, Logic1 and Logic2 has a propagation delay equal to 5ns and 2ns respectively, so the max clock frecuency is 200MHz.
 Now we can modify part of the Logic1 and also modify part of the Logic2 and compensate the slow stage with the fast stage, and in consequence increment the max clk frecuency. See the next figure
-![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY3/diagrams/10.jpg?raw=true)
-![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY3/diagrams/11.jpg?raw=true)
+![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY3/diagrams/10.png?raw=true)
+![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY3/diagrams/11.png?raw=true)
 
 # Lab: combinational logic optimization 
 
