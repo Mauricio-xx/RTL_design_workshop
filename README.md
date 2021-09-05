@@ -140,9 +140,6 @@ The .lib is file that the syntesizer requieres to do the synthesis process. This
 All depends of the specification of the design (like power consumption, maximum area, etc)
 for example, a fast circuit requieres wide transistor and this will be implicate more area and more power consumption
 for other side, a circuit that requieres low power consumption need to implement narrow transistor that will have a high capacitance, low area and less power consumption.
-### Ilustration of the synthesis process
-In the next figure it is possible to see a graphical representation of the RTL code mapped to standar cell of an specific .lib file
-![alt text](https://github.com/HALxmont/RTL_design_workshop/blob/main/DAY1/figs/8.jpg?raw=true)
 
 ## Laboratory (yosys basic flow)
 - On the directory ``` /sky130RTLDesignAndSynthesisWorkshop/verilog_files``` run:
